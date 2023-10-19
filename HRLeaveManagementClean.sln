@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FC056482-FC08-48F0-86A9-30D60FF508D3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A86A45F3-981D-4DAA-913A-D8A5CF5CFE74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{98EFA07C-501F-43AF-B095-C508C5509B33}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{615ABB80-A875-4582-A040-1FB23AD926A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{76A1F852-1C10-4E33-88DE-FECAAE918945}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{D055E044-EBB8-4207-A6FF-9AC0D261DA84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRLeaveManagement.Domain", "HRLeaveManagement.Domain\HRLeaveManagement.Domain.csproj", "{E12C71BA-EE42-42B6-9586-C4B4A5E036DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E12C71BA-EE42-42B6-9586-C4B4A5E036DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E12C71BA-EE42-42B6-9586-C4B4A5E036DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E12C71BA-EE42-42B6-9586-C4B4A5E036DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E12C71BA-EE42-42B6-9586-C4B4A5E036DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{98EFA07C-501F-43AF-B095-C508C5509B33} = {FC056482-FC08-48F0-86A9-30D60FF508D3}
+		{615ABB80-A875-4582-A040-1FB23AD926A7} = {FC056482-FC08-48F0-86A9-30D60FF508D3}
+		{76A1F852-1C10-4E33-88DE-FECAAE918945} = {FC056482-FC08-48F0-86A9-30D60FF508D3}
+		{D055E044-EBB8-4207-A6FF-9AC0D261DA84} = {FC056482-FC08-48F0-86A9-30D60FF508D3}
+		{E12C71BA-EE42-42B6-9586-C4B4A5E036DE} = {615ABB80-A875-4582-A040-1FB23AD926A7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9A588D19-1E47-4B44-90FA-6C2834B2C63E}
+	EndGlobalSection
+EndGlobal

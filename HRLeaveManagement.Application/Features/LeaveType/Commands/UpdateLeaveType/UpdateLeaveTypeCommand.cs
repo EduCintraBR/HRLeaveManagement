@@ -4,6 +4,7 @@ namespace HRLeaveManagement.Application.Features.LeaveType.Commands.UpdateLeafTy
 {
     public record UpdateLeaveTypeCommand() : IRequest<Unit>
     {
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public int DefaultDays { get; set; }
     }

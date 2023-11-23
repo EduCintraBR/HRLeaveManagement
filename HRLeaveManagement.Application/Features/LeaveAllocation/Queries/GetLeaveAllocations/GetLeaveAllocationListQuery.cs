@@ -2,7 +2,7 @@
 
 namespace HRLeaveManagement.Application.Features.LeaveAllocation.Queries.GetLeaveAllocations
 {
-    public class GeLeaveAllocationListQuery : IRequest<List<LeaveAllocationDto>>
+    public class GetLeaveAllocationListQuery : IRequest<List<LeaveAllocationDto>>
     {
 
     }

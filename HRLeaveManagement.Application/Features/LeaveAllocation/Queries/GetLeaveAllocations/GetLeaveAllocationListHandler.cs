@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HRLeaveManagement.Application.Features.LeaveAllocation.Queries.GetLeaveAllocations
 {
-    public class GetLeaveAllocationListHandler : IRequestHandler<GeLeaveAllocationListQuery, List<LeaveAllocationDto>>
+    public class GetLeaveAllocationListHandler : IRequestHandler<GetLeaveAllocationListQuery, List<LeaveAllocationDto>>
     {
         private readonly ILeaveAllocationRepository _leaveAllocationRepository;
         private readonly IMapper _mapper;
@@ -20,7 +20,7 @@ namespace HRLeaveManagement.Application.Features.LeaveAllocation.Queries.GetLeav
             this._mapper = mapper;
         }
 
-        public async Task<List<LeaveAllocationDto>> Handle(GeLeaveAllocationListQuery request, CancellationToken cancellationToken)
+        public async Task<List<LeaveAllocationDto>> Handle(GetLeaveAllocationListQuery request, CancellationToken cancellationToken)
         {
             // To Add Later
             // - Get records for specific user

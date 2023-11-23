@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using HRLeaveManagement.Application.Contracts.Persistence;
+﻿using HRLeaveManagement.Application.Contracts.Persistence;
 using HRLeaveManagement.Application.Exceptions;
 using MediatR;
 
@@ -7,12 +6,10 @@ namespace HRLeaveManagement.Application.Features.LeaveRequest.Commands.DeleteLea
 {
     public class DeleteLeaveRequestCommandHandler : IRequestHandler<DeleteLeaveRequestCommand, Unit>
     {
-        private readonly IMapper _mapper;
         private readonly ILeaveRequestRepository _leaveRequestRepository;
 
-        public DeleteLeaveRequestCommandHandler(IMapper mapper, ILeaveRequestRepository leaveRequestRepository)
+        public DeleteLeaveRequestCommandHandler(ILeaveRequestRepository leaveRequestRepository)
         {
-            this._mapper = mapper;
             this._leaveRequestRepository = leaveRequestRepository;
         }
 

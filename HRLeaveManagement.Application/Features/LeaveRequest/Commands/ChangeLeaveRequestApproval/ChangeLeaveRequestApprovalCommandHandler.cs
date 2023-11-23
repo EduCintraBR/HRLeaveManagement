@@ -6,55 +6,51 @@ using HRLeaveManagement.Application.Exceptions;
 using HRLeaveManagement.Application.Models.Email;
 using MediatR;
 
-namespace HRLeaveManagement.Application.Features.LeaveRequest.Commands.UpdateLeaveRequest
+namespace HRLeaveManagement.Application.Features.LeaveRequest.Commands.ChangeLeaveRequestApproval
 {
-    public class UpdateLeaveRequestCommandHandler : IRequestHandler<UpdateLeaveRequestCommand, Unit>
+    public class ChangeLeaveRequestApprovalCommandHandler : IRequestHandler<ChangeLeaveRequestApprovalCommand, Unit>
     {
         private readonly IMapper _mapper;
         private readonly IEmailSender _emailSender;
+        private readonly IAppLogger<ChangeLeaveRequestApprovalCommandHandler> _appLogger;
         private readonly ILeaveRequestRepository _leaveRequestRepository;
         private readonly ILeaveTypeRepository _leaveTypeRepository;
-        private readonly IAppLogger<UpdateLeaveRequestCommandHandler> _appLogger;
 
-        public UpdateLeaveRequestCommandHandler(IMapper mapper, IEmailSender emailSender, ILeaveRequestRepository leaveRequestRepository, ILeaveTypeRepository leaveTypeRepository, IAppLogger<UpdateLeaveRequestCommandHandler> appLogger)
+        public ChangeLeaveRequestApprovalCommandHandler(IMapper mapper, IEmailSender emailSender, IAppLogger<ChangeLeaveRequestApprovalCommandHandler> appLogger, 
+            ILeaveRequestRepository leaveRequestRepository, ILeaveTypeRepository leaveTypeRepository)
         {
             this._mapper = mapper;
             this._emailSender = emailSender;
+            this._appLogger = appLogger;
             this._leaveRequestRepository = leaveRequestRepository;
             this._leaveTypeRepository = leaveTypeRepository;
-            this._appLogger = appLogger;
         }
 
-        public async Task<Unit> Handle(UpdateLeaveRequestCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ChangeLeaveRequestApprovalCommand request, CancellationToken cancellationToken)
         {
             var leaveRequest = await _leaveRequestRepository.GetByIdAsync(request.Id);
 
             if (leaveRequest is null)
-                throw new NotFoundException(nameof(LeaveRequest), request.Id);
+                throw new NotFoundException(nameof(leaveRequest), request.Id);
 
-            var validator = new UpdateLeaveRequestCommandValidator(_leaveTypeRepository, _leaveRequestRepository);
-            var validationResult = await validator.ValidateAsync(request);
+            // If request is approved, get and update the employee`s allocations
 
-            _mapper.Map(request, leaveRequest);
-
-            await _leaveRequestRepository.UpdateAsync(leaveRequest);
-
-            // Send Confirmation Email
+            // Send confirmation email
             try
             {
                 var email = new EmailMessage
                 {
                     To = string.Empty, /* Get Email from Employee record */
-                    Body = $"Your leave request for {request.StartDate:D} to {request.EndDate:D} " +
+                    Body = $"The approval status for your leave request for {leaveRequest.StartDate:D} to {leaveRequest.EndDate:D} " +
                            $"has been updated successfully.",
-                    Subject = "Leave Request Submitted"
+                    Subject = "Leave Request Approval Status Updated"
                 };
 
                 await _emailSender.SendEmailAsync(email);
             }
             catch (Exception ex)
             {
-                _appLogger.LogWarning(ex.Message);
+                _appLogger.LogInformation(ex.Message);
             }
 
             return Unit.Value;

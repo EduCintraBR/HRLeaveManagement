@@ -48,6 +48,8 @@ namespace HRLeaveManagement.Application.Features.LeaveRequest.Commands.CancelLea
             {
                 _appLogger.LogWarning(ex.Message);
             }
+
+            return Unit.Value;
         }
     }
 }

@@ -2,6 +2,7 @@
 using HRLeaveManagement.Application.Contracts.Logging;
 using HRLeaveManagement.Application.Contracts.Persistence;
 using HRLeaveManagement.Application.Features.LeaveType.Queries.GetAllLeaveTypes;
+using HRLeaveManagement.Application.Features.LeaveType.Queries.GetLeaveTypeDetails;
 using HRLeaveManagement.Application.MappingProfiles;
 using HRLeaveManagement.Application.UnitTestes.Mocks;
 using Moq;
@@ -36,5 +37,20 @@ public class GetLeaveTypeListQueryHandlerTests
 
         result.ShouldBeOfType<List<LeaveTypeDto>>();
         result.Count.ShouldBe(3);
+    }
+
+    [Fact]
+    public async Task GetLeaveTypeDetailTest()
+    {
+        // Arrange
+        int idToFound = 3;
+        var handler = new GetLeaveTypeDetailQueryHandler(_mapper, _mockRepo.Object);
+
+        // Act
+        var result = await handler.Handle(new GetLeaveTypeDetailsQuery(idToFound), CancellationToken.None);
+
+        // Assert
+        result.ShouldNotBeNull();
+        result.ShouldBeOfType<LeaveTypeDetailsDto>();
     }
 }

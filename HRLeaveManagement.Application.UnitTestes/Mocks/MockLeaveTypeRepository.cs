@@ -1,4 +1,6 @@
 ﻿using HRLeaveManagement.Application.Contracts.Persistence;
+using HRLeaveManagement.Application.Features.LeaveType.Commands.UpdateLeafType;
+using HRLeaveManagement.Application.Features.LeaveType.Commands.UpdateLeaveType;
 using HRLeaveManagement.Domain;
 using Moq;
 
@@ -33,23 +35,52 @@ namespace HRLeaveManagement.Application.UnitTestes.Mocks
             var mockRepo = new Mock<ILeaveTypeRepository>();
 
             mockRepo.Setup(s => s.GetAllAsync()).ReturnsAsync(leaveTypes);
+            mockRepo.Setup(s => s.GetByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync((int id) =>
+                {
+                    var item = leaveTypes.FirstOrDefault(t => t.Id == id);
+                    if (item is null)
+                        throw new KeyNotFoundException($"No item found with id {id}.");
+
+                    return item;
+                });
 
             mockRepo.Setup(s => s.CreateAsync(It.IsAny<LeaveType>()))
-                .Returns((LeaveType leaveType) =>
+                .Callback((LeaveType leaveType) =>
                 {
+                    var newId = leaveTypes.Max(l => l.Id) + 1;
+                    leaveType.Id = newId;
                     leaveTypes.Add(leaveType);
-                    return Task.CompletedTask;
-                });
+                })
+                .Returns(Task.CompletedTask);
 
             mockRepo.Setup(s => s.UpdateAsync(It.IsAny<LeaveType>()))
-                .Returns((LeaveType leaveType) =>
+                .Callback((LeaveType leaveType) =>
                 {
-                    var item = leaveTypes.FirstOrDefault(p => p.Id == leaveType.Id);
-                    leaveTypes.Remove(item);
-                    leaveTypes.Add(leaveType);
+                    if (leaveType is null)
+                        throw new ArgumentNullException(nameof(leaveType));
 
-                    return Task.CompletedTask;
-                });
+                    var item = leaveTypes.FirstOrDefault(p => p.Id == leaveType.Id);
+                    if (item != null)
+                    {
+                        item.DefaultDays = leaveType.DefaultDays;
+                        item.Name = leaveType.Name;
+                    }
+                    else
+                        throw new InvalidOperationException("Item not found.");
+                })
+                .Returns(Task.CompletedTask);
+
+
+            mockRepo.Setup(s => s.DeleteAsync(It.IsAny<LeaveType>()))
+                .Callback((LeaveType leaveType) =>
+                {
+                    if (leaveType is null)
+                        throw new ArgumentNullException(nameof(leaveType));
+
+                    leaveTypes.Remove(leaveType);
+                })
+                .Returns(Task.CompletedTask);
 
             return mockRepo;
         }

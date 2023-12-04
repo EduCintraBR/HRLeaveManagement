@@ -5,6 +5,6 @@ namespace HRLeaveManagement.Application.Contracts.Identity
     public interface IUserService
     {
         Task<List<Employee>> GetEmployeesAsync();
-        Task<Employee> GetEmployesAsync(string userId);
+        Task<Employee> GetEmployeeAsync(string userId);
     }
 }

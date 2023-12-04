@@ -1,6 +1,6 @@
 ﻿namespace HRLeaveManagement.Application.Models.Identity
 {
-    public class AuthReponse
+    public class AuthResponse
     {
         public string Id { get; set; }
         public string UserName { get; set; }

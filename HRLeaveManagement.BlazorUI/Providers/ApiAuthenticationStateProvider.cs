@@ -10,10 +10,10 @@ namespace HRLeaveManagement.BlazorUI.Providers
         private readonly ILocalStorageService _localStorage;
         private readonly JwtSecurityTokenHandler _jwtSecurityToken;
 
-        public ApiAuthenticationStateProvider(ILocalStorageService localStorage, JwtSecurityTokenHandler jwtSecurityToken)
+        public ApiAuthenticationStateProvider(ILocalStorageService localStorage)
         {
             this._localStorage = localStorage;
-            this._jwtSecurityToken = jwtSecurityToken;
+            this._jwtSecurityToken = new JwtSecurityTokenHandler();
         }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()

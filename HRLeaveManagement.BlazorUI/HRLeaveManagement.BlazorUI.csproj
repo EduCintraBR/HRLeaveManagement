@@ -23,8 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Authentication\" />
-    <Folder Include="Models\LeaveAllocations\" />
-    <Folder Include="Models\LeaveRequests\" />
   </ItemGroup>
 
 </Project>
